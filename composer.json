@@ -28,6 +28,8 @@
             "Folded\\": "src"
         },
         "files": [
+            "src/addGetRoute.php",
+            "src/addPostRoute.php",
             "src/getRequestedUri.php",
             "src/getRequestedUrl.php",
             "src/getRequestMethod.php",
