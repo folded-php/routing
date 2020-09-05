@@ -1,0 +1,9 @@
+version: "3"
+services:
+  web:
+    build: ./docker/php-7-4
+    tty: true
+    volumes:
+      - .:/var/www/html
+    environment:
+      XDEBUG_CONFIG: remote_host=192.168.99.100
