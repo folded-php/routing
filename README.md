@@ -14,7 +14,9 @@ Routing functions for your web application.
 
 ## About
 
-I created this library to be able to pull it in an existing, non existing, folder opiniated project. The goal is to adapt to bring all the utilities for setting up a routing mecanism in a modular way.
+I created this library to have a standalone, fully featured router, and be able to pull it in any project, that have some existing code or not.
+
+This library, as well as the libraries from Folded, are meant to be taken, removed, without effort. Think of it as the equivalent of [the project Ara](https://en.wikipedia.org/wiki/Project_Ara), but for PHP.
 
 ## Requirements
 
