@@ -2,7 +2,7 @@
 
 Routing functions for your web application.
 
-[![Build Status](https://travis-ci.com/folded-php/routing.svg?branch=master)](https://travis-ci.com/folded-php/routing) [![Maintainability](https://api.codeclimate.com/v1/badges/0be9fba0b7990aba814d/maintainability)](https://codeclimate.com/github/folded-php/routing/maintainability)
+[![Packagist License](https://img.shields.io/packagist/l/folded/routing)](https://github.com/folded-php/routing/blob/master/LICENSE) [![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/folded/routing)](https://github.com/folded-php/routing/blob/master/composer.json#L14) [![Packagist Version](https://img.shields.io/packagist/v/folded/routing)](https://packagist.org/packages/folded/routing) [![Build Status](https://travis-ci.com/folded-php/routing.svg?branch=master)](https://travis-ci.com/folded-php/routing) [![Maintainability](https://api.codeclimate.com/v1/badges/0be9fba0b7990aba814d/maintainability)](https://codeclimate.com/github/folded-php/routing/maintainability)
 
 ## Summary
 
