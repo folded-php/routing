@@ -16,7 +16,9 @@ Routing functions for your web application.
 
 I created this library to have a standalone, fully featured router, and be able to pull it in any project, that have some existing code or not.
 
-This library, as well as the libraries from Folded, are meant to be taken, removed, without effort. Think of it as the equivalent of [the project Ara](https://en.wikipedia.org/wiki/Project_Ara), but for PHP.
+Folded is a constellation of packages to help you setting up a web app easily, using ready to plug in packages.
+
+- [folded/view](https://github.com/folded-php/view): View utilities for your PHP web app.
 
 ## Requirements
 
