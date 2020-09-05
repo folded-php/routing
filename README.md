@@ -2,6 +2,8 @@
 
 Routing functions for your web application.
 
+[![Build Status](https://travis-ci.com/folded-php/routing.svg?branch=master)](https://travis-ci.com/folded-php/routing) [![Maintainability](https://api.codeclimate.com/v1/badges/0be9fba0b7990aba814d/maintainability)](https://codeclimate.com/github/folded-php/routing/maintainability)
+
 ## Summary
 
 -   [About](#about)
