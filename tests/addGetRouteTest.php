@@ -22,7 +22,7 @@ it("should add the route", function (): void {
 });
 
 it("should throw an exception if the route is empty", function (): void {
-    $this->expectException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
 
     addGetRoute("", function (): void {
         echo "hello world";

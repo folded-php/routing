@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Khalyomede\Folded\Exceptions;
+namespace Folded\Exceptions;
 
 use Exception;
 

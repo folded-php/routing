@@ -9,8 +9,8 @@ use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function Foled\getRequestedUri;
 use function FastRoute\simpleDispatcher;
-use Khalyomede\Folded\Exceptions\UrlNotFoundException;
-use Khalyomede\Folded\Exceptions\MethodNotAllowedException;
+use Folded\Exceptions\UrlNotFoundException;
+use Folded\Exceptions\MethodNotAllowedException;
 
 /**
  * Represent the engine that matches the current browsed URL against registered URLs.

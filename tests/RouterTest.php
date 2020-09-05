@@ -3,13 +3,15 @@
 declare(strict_types = 1);
 
 use Folded\Router;
+use Folded\Exceptions\UrlNotFoundException;
+use Folded\Exceptions\MethodNotAllowedException;
 
 beforeEach(function (): void {
     Router::clear();
 });
 
 it("should throw an exception if the route is empty", function (): void {
-    $this->expectException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
 
     Router::addGetRoute("", function (): void {
         echo "hello world";
@@ -17,7 +19,7 @@ it("should throw an exception if the route is empty", function (): void {
 });
 
 it("should throw an exception if the current URL is not found", function (): void {
-    $this->expectException('Khalyomede\Folded\Exceptions\UrlNotFoundException');
+    $this->expectException(UrlNotFoundException::class);
 
     $_SERVER["REQUEST_URI"] = "/about-us";
     $_SERVER["REQUEST_METHOD"] = "GET";
@@ -30,7 +32,7 @@ it("should throw an exception if the current URL is not found", function (): voi
 });
 
 it("should throw an exception if the current URL method is not allowed", function (): void {
-    $this->expectException('Khalyomede\Folded\Exceptions\MethodNotAllowedException');
+    $this->expectException(MethodNotAllowedException::class);
 
     $_SERVER["REQUEST_URI"] = "/";
     $_SERVER["REQUEST_METHOD"] = "POST";

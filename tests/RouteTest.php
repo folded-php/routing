@@ -36,7 +36,7 @@ it("should return true if the route is correct", function (): void {
 });
 
 it("should throw an exception if the protocol is not valid", function (): void {
-    $this->expectException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
 
     new Route("FOO", "/", function (): void {
         echo "hello world";
@@ -54,7 +54,7 @@ it("should throw an exception message if the protocol is not valid", function ()
 });
 
 it("should throw an exception if the route is empty", function (): void {
-    $this->expectException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
 
     new Route("GET", "", function (): void {
         echo "hello world";

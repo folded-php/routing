@@ -27,7 +27,6 @@ return Config::create()
         "class_attributes_separation" => [
             "elements" => ["const", "method", "property"],
         ],
-        "class_keyword_remove" => true,
         "combine_consecutive_issets" => true,
         "combine_consecutive_unsets" => true,
         "compact_nullable_typehint" => true,
