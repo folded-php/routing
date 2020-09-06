@@ -19,6 +19,7 @@ I created this library to have a standalone, fully featured router, and be able 
 Folded is a constellation of packages to help you setting up a web app easily, using ready to plug in packages.
 
 - [folded/config](https://github.com/folded-php/config): Configuration utilities for your PHP web app.
+- [folded/request](https://github.com/folded-php/request): Request utilities, including a request validator, for your PHP web app.
 - [folded/view](https://github.com/folded-php/view): View utilities for your PHP web app.
 
 ## Requirements
