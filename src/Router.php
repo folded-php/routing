@@ -117,8 +117,8 @@ class Router
      *
      * @since 0.1.0
      *
-     * @throws UrlNotFoundException      If the URL is not found in the registered routes.
-     * @throws MethodNotAllowedException If the URL has been found, but the current protocol does not match.
+     * @throws Folded\Exceptions\UrlNotFoundException      If the URL is not found in the registered routes.
+     * @throws Folded\Exceptions\MethodNotAllowedException If the URL has been found, but the current protocol does not match.
      *
      * @example
      * Router::listen();
@@ -169,8 +169,8 @@ class Router
      *
      * @since 0.1.0
      *
-     * @throws UrlNotFoundException      If the current browsed URL does not match the registered URLs.
-     * @throws MethodNotAllowedException If the current browsed URL matches, but the protocol don't.
+     * @throws Folded\Exceptions\UrlNotFoundException      If the current browsed URL does not match the registered URLs.
+     * @throws Folded\Exceptions\MethodNotAllowedException If the current browsed URL matches, but the protocol don't.
      *
      * @example
      * Router::matchUrl();
