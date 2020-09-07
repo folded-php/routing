@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] 2020-09-07
+
+### Added
+
+- **Nothing change** on your code. We moved from local exception to shared exception internally for both `Folded\Exceptions\UrlNotFoundException` and `Folded\Exception\MethodNotAllowedException`.
+
 ## [0.1.2] 2020-09-05
 
 ### Fixed

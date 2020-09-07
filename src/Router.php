@@ -184,11 +184,11 @@ class Router
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                throw new UrlNotFoundException("url not found");
+                throw (new UrlNotFoundException("url not found"))->setUrl($uri);
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = $routeInfo[1];
 
-                throw new MethodNotAllowedException("method not allowed");
+                throw (new MethodNotAllowedException("method not allowed"))->setMethodNotAllowed($requestMethod)->setAllowedMethods($allowedMethods);
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];

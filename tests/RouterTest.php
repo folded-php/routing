@@ -31,6 +31,22 @@ it("should throw an exception if the current URL is not found", function (): voi
     Router::matchRequestedUrl();
 });
 
+it("should set the url in the exception if the current URL is not found", function (): void {
+    $_SERVER["REQUEST_URI"] = "/about-us";
+    $_SERVER["REQUEST_METHOD"] = "GET";
+
+    Router::addGetRoute("/", function (): void {
+        echo "hello world";
+    });
+    Router::startEngine();
+
+    try {
+        Router::matchRequestedUrl();
+    } catch (UrlNotFoundException $exception) {
+        expect($exception->getUrl())->toBe("/about-us");
+    }
+});
+
 it("should throw an exception if the current URL method is not allowed", function (): void {
     $this->expectException(MethodNotAllowedException::class);
 
@@ -42,6 +58,38 @@ it("should throw an exception if the current URL method is not allowed", functio
     });
     Router::startEngine();
     Router::matchRequestedUrl();
+});
+
+it("should set the method not allowed in the exception if the current URL method is not allowed", function (): void {
+    $_SERVER["REQUEST_URI"] = "/";
+    $_SERVER["REQUEST_METHOD"] = "POST";
+
+    Router::addGetRoute("/", function (): void {
+        echo "hello world";
+    });
+    Router::startEngine();
+
+    try {
+        Router::matchRequestedUrl();
+    } catch (MethodNotAllowedException $exception) {
+        expect($exception->getMethodNotAllowed())->toBe("POST");
+    }
+});
+
+it("should set the allowed methods in the exception if the current URL method is not allowed", function (): void {
+    $_SERVER["REQUEST_URI"] = "/";
+    $_SERVER["REQUEST_METHOD"] = "POST";
+
+    Router::addGetRoute("/", function (): void {
+        echo "hello world";
+    });
+    Router::startEngine();
+
+    try {
+        Router::matchRequestedUrl();
+    } catch (MethodNotAllowedException $exception) {
+        expect($exception->getAllowedMethods())->toBe(["GET"]);
+    }
 });
 
 it("should execute the closure if the current URL matches the registered route", function (): void {
