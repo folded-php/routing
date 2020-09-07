@@ -121,7 +121,7 @@ class Router
      * @throws Folded\Exceptions\MethodNotAllowedException If the URL has been found, but the current protocol does not match.
      *
      * @example
-     * Router::listen();
+     * Router::matchRequestedUrl();
      */
     public static function matchRequestedUrl()
     {
