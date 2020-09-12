@@ -70,6 +70,8 @@ As this library is using [nikic/fast-route](https://github.com/nikic/FastRoute) 
 - [2. Register a POST route](#2-register-a-post-route)
 - [3. Catching url not found exceptions](#3-catching-url-not-found-exceptions)
 - [4. Catching method not allowed exceptions](#4-catching-method-not-allowed-exceptions)
+- [5. Naming a route](#5-naming-a-route)
+- [6. Get the URL of a named route](#6-get-the-url-of-a-named-route)
 
 ### 1. Register a GET route
 
@@ -130,6 +132,33 @@ try {
     // Display a 405 page...
   }
 }
+```
+
+### 5. Naming a route
+
+In this example, we will name a route.
+
+```php
+use function Folded\addGetRoute;
+
+addGetRoute("/", function() {
+  echo "welcome home";
+}, "home.index");
+```
+
+### 6. Get the URL of a named route
+
+In this example, we will get the name of a named route.
+
+```php
+use function Folded\addGetRoute;
+use function Folded\getRouteUrl;
+
+addGetRoute("/user/{user}/post/{post}", function($user, $post) {
+  echo "User $user posted $post";
+}, "user.post.show");
+
+echo getRouteUrl("user.post.show", ["user" => 42, "post" => 1]); // string(15) "/user/42/post/1"
 ```
 
 ## Version support

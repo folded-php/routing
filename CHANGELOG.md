@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New third optional parameter `$name` for the methods `addGetRoute()` and `addPostRoute()` to name a route.
+- New method `getRouteUrl("home.index")` to get the URL from a route name.
+
 ## [0.1.3] 2020-09-07
 
 ### Added

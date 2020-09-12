@@ -20,8 +20,8 @@ if (!function_exists("addPostRoute")) {
      *  echo "<h1>Search results for $search</h1>";
      * });
      */
-    function addPostRoute(string $route, Closure $action): void
+    function addPostRoute(string $route, Closure $action, ?string $name = null): void
     {
-        Router::addPostRoute($route, $action);
+        Router::addPostRoute($route, $action, $name);
     }
 }
