@@ -169,3 +169,4 @@ echo getRouteUrl("user.post.show", ["user" => 42, "post" => 1]); // string(15) "
 | v0.1.1 | ❌  | ✔️  | ❓  |
 | v0.1.2 | ❌  | ✔️  | ❓  |
 | v0.1.3 | ❌  | ✔️  | ❓  |
+| v0.2.0 | ❌  | ✔️  | ❓  |
