@@ -35,6 +35,7 @@
             "src/getRequestedUrl.php",
             "src/getRequestMethod.php",
             "src/getRoutes.php",
+            "src/getRouteUrl.php",
             "src/matchRequestedUrl.php"
         ]
     }

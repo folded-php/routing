@@ -5,8 +5,11 @@ declare(strict_types = 1);
 namespace Folded;
 
 use Closure;
+use OutOfRangeException;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+use InvalidArgumentException;
+use FastRoute\RouteParser\Std;
 use function Foled\getRequestedUri;
 use function FastRoute\simpleDispatcher;
 use Folded\Exceptions\UrlNotFoundException;
@@ -56,6 +59,9 @@ class Router
      *
      * @param string  $route  The URL or route pattern.
      * @param Closure $action The function to trigger when the current browsed URL matches the route.
+     * @param string  $name   The name of the route (optional).
+     *
+     * @throws InvalidArgumentException If the route name is empty.
      *
      * @since 0.1.0
      *
@@ -64,13 +70,19 @@ class Router
      *  echo "<h1>Welcome</h1>";
      * });
      */
-    public static function addGetRoute(string $route, Closure $action): void
+    public static function addGetRoute(string $route, Closure $action, ?string $name = null): void
     {
-        static::addRoute(self::PROTOCOL_GET, $route, $action);
+        static::addRoute(self::PROTOCOL_GET, $route, $action, $name);
     }
 
     /**
      * Add a POST route.
+     *
+     * @param string  $route  The URL or route pattern.
+     * @param Closure $action The function to trigger when the current browsed URL matches.
+     * @param string  $name   The name of the route (optional).
+     *
+     * @throws InvalidArgumentException If the route name is empty.
      *
      * @since 0.1.0
      *
@@ -79,9 +91,9 @@ class Router
      *  echo "search results for $search";
      * });
      */
-    public static function addPostRoute(string $route, Closure $action): void
+    public static function addPostRoute(string $route, Closure $action, ?string $name = null): void
     {
-        static::addRoute(self::PROTOCOL_POST, $route, $action);
+        static::addRoute(self::PROTOCOL_POST, $route, $action, $name);
     }
 
     /**
@@ -110,6 +122,34 @@ class Router
     public static function getRoutes(): array
     {
         return static::$routes;
+    }
+
+    /**
+     * Get the URL associated with the given route.
+     * If the route contains placeholders, you need to pass the parameters to be filled.
+     *
+     * @param string $name       The name of the route.
+     * @param array  $parameters The parameters, by key-value pairs or simply values, to fill in the placeholders (optional).
+     *
+     * @throws OurOfRangeException If the route name is not found.
+     *
+     * @since 0.2.0
+     *
+     * @example
+     * Router::getRouteUrl("user.show", ["user" => 42]);
+     */
+    public static function getRouteUrl(string $name, array $parameters = []): string
+    {
+        if (!isset(self::$routes[$name])) {
+            throw new OutOfRangeException("route $name not found");
+        }
+
+        /**
+         * @var Route
+         */
+        $route = self::$routes[$name];
+
+        return self::replaceRouteParameters($route->getRoute(), $parameters);
     }
 
     /**
@@ -153,15 +193,28 @@ class Router
      * @param string  $protocol The HTTP protocol.
      * @param string  $route    The URL or route pattern.
      * @param Closure $action   The function to trigger when the current browsed URL matches the route.
+     * @param string  $name     The name of the route (optional).
+     *
+     * @throws InvalidArgumentException If the route name is empty.
      *
      * @since 0.1.0
      *
      * @example
      * Router::addRoute("GET", "/", fn () => echo "hello world");
      */
-    private static function addRoute(string $protocol, string $route, Closure $action): void
+    private static function addRoute(string $protocol, string $route, Closure $action, ?string $name = null): void
     {
-        static::$routes[] = new Route($protocol, $route, $action);
+        $route = new Route($protocol, $route, $action);
+
+        if ($name !== null) {
+            if (empty(trim($name))) {
+                throw new InvalidArgumentException("route name cannot be empty");
+            }
+
+            static::$routes[$name] = $route;
+        } else {
+            static::$routes[] = $route;
+        }
     }
 
     /**
@@ -195,5 +248,56 @@ class Router
 
                 return call_user_func_array($handler, $vars);
         }
+    }
+
+    private static function replaceRouteParameters(string $route, array $parameters): string
+    {
+        $routeDatas = (new Std())->parse($route);
+        $placeholders = $parameters;
+
+        $url = "";
+
+        foreach ($routeDatas as $routeData) {
+            foreach ($routeData as $data) {
+                if (is_string($data)) {
+                    // This is a string, so nothing to replace inside of it
+                    $url .= $data;
+                } elseif (is_array($data)) {
+                    // This is an array, so it contains in first the name of the parameter, and in second the regular expression.
+                    // Example, [0 => "name", 1 => "[^/]"]
+                    [$parameterName, $regularExpression] = $data;
+
+                    $parameterValue = null;
+
+                    if (isset($placeholders[$parameterName])) {
+                        // If the parameter name is found by its key in the $parameters parameter, we use it
+                        $parameterValue = $placeholders[$parameterName];
+
+                        // We remove it from the remaining placeholders values
+                        unset($placeholders[$parameterName]);
+                    } elseif (isset($placeholders[0])) {
+                        // Else, we take the first parameter in the $parameters parameter
+                        $parameterValue = $placeholders[0];
+
+                        // We remove it from the remaining available placeholders values
+                        array_shift($placeholders);
+                    } else {
+                        throw new InvalidArgumentException("parameter $parameterName missing for route $route");
+                    }
+
+                    // Checking if the value found matches the regular expression of the associated route parameter
+                    $matches = [];
+                    $success = preg_match("/" . str_replace("/", "\/", $regularExpression) . "/", (string) $parameterValue, $matches);
+
+                    if ($success !== 1 || (isset($matches[0]) && $parameterValue != $matches[0])) {
+                        throw new InvalidArgumentException("parameter $parameterName does not matches regular expression $regularExpression for route $route");
+                    }
+
+                    $url .= $parameterValue;
+                }
+            }
+        }
+
+        return $url;
     }
 }
