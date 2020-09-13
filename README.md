@@ -7,6 +7,7 @@ Routing functions for your web application.
 ## Summary
 
 - [About](#about)
+- [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Examples](#examples)
@@ -24,6 +25,13 @@ Folded is a constellation of packages to help you setting up a web app easily, u
 - [folded/orm](https://github.com/folded-php/orm): An ORM for you web app.
 - [folded/request](https://github.com/folded-php/request): Request utilities, including a request validator, for your PHP web app.
 - [folded/view](https://github.com/folded-php/view): View utilities for your PHP web app.
+
+## Features
+
+- register GET and POST routes actions (using callback)
+- can match the current browsed URL and execute the associated callback
+- can name the registered route to use additional functions like:
+  - getting the URL from a route name
 
 ## Requirements
 
