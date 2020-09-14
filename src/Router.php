@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Folded;
 
 use Closure;
+use Http\Redirection;
 use OutOfRangeException;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -140,7 +141,8 @@ class Router
      */
     public static function getRouteUrl(string $name, array $parameters = []): string
     {
-        if (!isset(self::$routes[$name])) {
+        // Use Folded\RouteNotFoundException instead.
+        if (!self::hasRoute($name)) {
             throw new OutOfRangeException("route $name not found");
         }
 
@@ -168,6 +170,53 @@ class Router
         static::startEngine();
 
         return static::matchUrl();
+    }
+
+    /**
+     * Redirects to the URL found by its route name.
+     *
+     * @param string $name   The name of the route.
+     * @param int    $status The HTTP status code to use when redirecting (default: 303 - See other).
+     *
+     * @throws OutOfRangeException If the route name is not found.
+     *
+     * @since 0.3.0
+     *
+     * @example
+     * Router::addGetRoute("/", function() {}, "home.index");
+     *
+     * Router::redirectToRoute("home.index"); // redirects to "/"
+     */
+    public static function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER): void
+    {
+        // @todo Use Folded\RouteNotFoundException instead.
+        if (!self::hasRoute($name)) {
+            throw new OutOfRangeException("route $name not found");
+        }
+
+        $url = self::getRouteUrl($name);
+
+        http_response_code($status);
+
+        header("Location:$url");
+    }
+
+    /**
+     * Redirects to a given URL.
+     *
+     * @param string $url    The URL to redirect to.
+     * @param int    $status The HTTP status code ot use when redirecting.
+     *
+     * @since 0.3.0
+     *
+     * @example
+     * Router::redirectToUrl("/about-us");
+     */
+    public static function redirectToUrl(string $url, int $status = Redirection::SEE_OTHER): void
+    {
+        http_response_code($status);
+
+        header("Location:$url");
     }
 
     /**
@@ -215,6 +264,25 @@ class Router
         } else {
             static::$routes[] = $route;
         }
+    }
+
+    /**
+     * Returns true if the route name is found, else returns false.
+     *
+     * @param string $name The route name.
+     *
+     * @since 0.3.0
+     *
+     * @example
+     * if (Router::hasRoute("home.index")) {
+     *  echo "has route home.index";
+     * } else {
+     *  echo "has not route home.index";
+     * }
+     */
+    private static function hasRoute(string $name): bool
+    {
+        return isset(self::$routes[$name]);
     }
 
     /**

@@ -233,3 +233,20 @@ it("should throw an exception message if the parameter does not match the regexp
 
     echo Router::getRouteUrl("user.show", ["/42"]);
 });
+
+it("should raise an exception if the route name is not found", function (): void {
+    $this->expectException(OutOfRangeException::class);
+
+    Router::redirectToRoute("home.index");
+});
+
+it("should return null when redirecting to a route", function (): void {
+    Router::addGetRoute("/", function (): void {
+    }, "home.index");
+
+    expect(Router::redirectToRoute("home.index"))->toBeNull();
+});
+
+it("should return null when redirecting to an url", function (): void {
+    expect(Router::redirectToUrl("/"))->toBeNull();
+});

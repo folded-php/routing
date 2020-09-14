@@ -13,7 +13,8 @@
     "require": {
         "php": ">=7.4.0",
         "nikic/fast-route": "1.*",
-        "folded/exception": "0.1.*"
+        "folded/exception": "0.1.*",
+        "folded/http": "0.1.*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "2.*",
@@ -36,7 +37,9 @@
             "src/getRequestMethod.php",
             "src/getRoutes.php",
             "src/getRouteUrl.php",
-            "src/matchRequestedUrl.php"
+            "src/matchRequestedUrl.php",
+            "src/redirectToRoute.php",
+            "src/redirectToUrl.php"
         ]
     }
 }

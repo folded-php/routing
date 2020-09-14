@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New method `redirectToRoute("home.index")` which redirect to the URL matching the route name.
+- New method `redirectToUrl("/about-us")` which redirects to a plain URL.
+
 ## [0.2.0] 2020-09-12
 
 ### Added
