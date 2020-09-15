@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use Folded\Router;
 use Folded\Exceptions\UrlNotFoundException;
+use Folded\Exceptions\RouteNotFoundException;
 use Folded\Exceptions\MethodNotAllowedException;
 
 beforeEach(function (): void {
@@ -235,9 +236,25 @@ it("should throw an exception message if the parameter does not match the regexp
 });
 
 it("should raise an exception if the route name is not found", function (): void {
-    $this->expectException(OutOfRangeException::class);
+    $this->expectException(RouteNotFoundException::class);
 
     Router::redirectToRoute("home.index");
+});
+
+it("should raise an exception message if the route name is not found", function (): void {
+    $this->expectExceptionMessage("route home.index not found");
+
+    Router::redirectToRoute("home.index");
+});
+
+it("should set the route in the exception if the route name is not found", function (): void {
+    $route = "home.index";
+
+    try {
+        Router::redirectToRoute($route);
+    } catch (RouteNotFoundException $exception) {
+        expect($exception->getRoute())->toBe($route);
+    }
 });
 
 it("should return null when redirecting to a route", function (): void {
