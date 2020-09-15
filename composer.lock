@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0afae7932f4758bd747c5e464216b4a",
+    "content-hash": "9989180cd89f84a3904e8e9ed9adedea",
     "packages": [
         {
             "name": "folded/exception",
@@ -46,6 +46,51 @@
             ],
             "description": "Various kind of exception to throw for your web app.",
             "time": "2020-09-06T20:46:52+00:00"
+        },
+        {
+            "name": "folded/http",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/folded-php/http.git",
+                "reference": "503f651d55af142292db541787297b6f934502e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/folded-php/http/zipball/503f651d55af142292db541787297b6f934502e0",
+                "reference": "503f651d55af142292db541787297b6f934502e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Http\\": "sources/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amin NAIRI",
+                    "homepage": "https://github.com/aminnairi",
+                    "role": "Developer"
+                }
+            ],
+            "description": "HTTP utilities for your web app.",
+            "homepage": "https://github.com/folded-php/http#readme",
+            "keywords": [
+                "folded",
+                "http"
+            ],
+            "time": "2020-09-13T18:55:46+00:00"
         },
         {
             "name": "nikic/fast-route",

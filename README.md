@@ -81,6 +81,8 @@ As this library is using [nikic/fast-route](https://github.com/nikic/FastRoute) 
 - [4. Catching method not allowed exceptions](#4-catching-method-not-allowed-exceptions)
 - [5. Naming a route](#5-naming-a-route)
 - [6. Get the URL of a named route](#6-get-the-url-of-a-named-route)
+- [7. Redirect to a named route](#7-redirect-to-a-named-route)
+- [8. Redirect to an URL](#8-redirect-to-an-url)
 
 ### 1. Register a GET route
 
@@ -168,6 +170,52 @@ addGetRoute("/user/{user}/post/{post}", function($user, $post) {
 }, "user.post.show");
 
 echo getRouteUrl("user.post.show", ["user" => 42, "post" => 1]); // string(15) "/user/42/post/1"
+```
+
+### 7. Redirect to a named route
+
+In this example, we will redirect to the URL of a named route.
+
+```php
+use function Folded\addGetRoute;
+use function Folded\redirectToRoute;
+
+addGetRoute("/about-us", function() {
+  echo "<h1>About us</h1>";
+}, "about-us.index");
+
+redirectToRoute("about-us.index");
+```
+
+By default, a status code `303` will be used alongside the redirection. You can override this behavior by adding the HTTP status code of your choice as second parameter:
+
+```php
+use function Folded\addGetRoute;
+use function Folded\redirectToRoute;
+
+addGetRoute("/about-us", function() {
+  echo "<h1>About us</h1>";
+}, "about-us.index");
+
+redirectToRoute("about-us.index", 200);
+```
+
+### 8. Redirect to an URL
+
+In this example, we will redirect to a plain URL.
+
+```php
+use function Folded\redirectToUrl;
+
+redirectToUrl("/about-us");
+```
+
+By default, a status code `303` will be used alongside the redirection. You can override this behavior by adding the HTTP status code of your choice as second parameter:
+
+```php
+use function Folded\redirectToUrl;
+
+redirectToUrl("/", 200);
 ```
 
 ## Version support
