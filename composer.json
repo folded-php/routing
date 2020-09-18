@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.4.0",
         "nikic/fast-route": "1.*",
-        "folded/exception": "0.2.*",
+        "folded/exception": "0.3.*",
         "folded/http": "0.1.*"
     },
     "require-dev": {
