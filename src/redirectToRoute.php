@@ -13,7 +13,7 @@ if (!function_exists("redirectToRoute")) {
      * @param string $name   The name of the route.
      * @param int    $status The HTTP status code to use when redirecting (default: 303 - See other).
      *
-     * @throws OutOfRangeException If the route name is not found.
+     * @throws RouteNotFoundException If the route name is not found.
      *
      * @since 0.3.0
      *

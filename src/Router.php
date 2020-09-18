@@ -15,6 +15,7 @@ use function Foled\getRequestedUri;
 use function FastRoute\simpleDispatcher;
 use Folded\Exceptions\UrlNotFoundException;
 use Folded\Exceptions\MethodNotAllowedException;
+use Folded\Exceptions\RouteNotFoundException;
 
 /**
  * Represent the engine that matches the current browsed URL against registered URLs.
@@ -178,7 +179,7 @@ class Router
      * @param string $name   The name of the route.
      * @param int    $status The HTTP status code to use when redirecting (default: 303 - See other).
      *
-     * @throws OutOfRangeException If the route name is not found.
+     * @throws RouteNotFoundException If the route name is not found.
      *
      * @since 0.3.0
      *
@@ -189,9 +190,8 @@ class Router
      */
     public static function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER): void
     {
-        // @todo Use Folded\RouteNotFoundException instead.
         if (!self::hasRoute($name)) {
-            throw new OutOfRangeException("route $name not found");
+            throw (new RouteNotFoundException("route $name not found"))->setRoute($name);
         }
 
         $url = self::getRouteUrl($name);
