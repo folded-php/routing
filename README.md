@@ -19,7 +19,9 @@ I created this library to have a standalone, fully featured router, and be able 
 
 Folded is a constellation of packages to help you setting up a web app easily, using ready to plug in packages.
 
+- [folded/action](https://github.com/folded-php/action): A way to organize your controllers for your web app.
 - [folded/config](https://github.com/folded-php/config): Configuration utilities for your PHP web app.
+- [folded/crypt](https://github.com/folded-php/crypt): Encrypt and decrypt strings for your web app.
 - [folded/exception](https://github.com/folded-php/exception): Various kind of exception to throw for your web app.
 - [folded/history](https://github.com/folded-php/history): Manipulate the browser history for your web app.
 - [folded/http](https://github.com/folded-php/http): HTTP utilities for your web app.
