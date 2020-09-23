@@ -114,6 +114,57 @@ class Router
     }
 
     /**
+     * Returns true if route matches the current URL, else returns false.
+     *
+     * @param string $route      The route name to verify.
+     * @param array  $parameters The parameters to pass to the route if it has named parameters.
+     *
+     * @throws Folded\Exceptions\RouteNotFoundException If the route name is not found.
+     *
+     * @since 0.5.0
+     *
+     * @example
+     * if (Router::currentRouteIs("home.index")) {
+     *  echo "current route is /";
+     * } else {
+     *  echo "current route is not /";
+     * }
+     */
+    public static function currentRouteIs(string $route, array $parameters = []): bool
+    {
+        if (!self::hasRoute($route)) {
+            throw (new RouteNotFoundException("route $route not found"))->setRoute($route);
+        }
+
+        return self::getRouteUrl($route, $parameters) === $_SERVER["REQUEST_URI"];
+    }
+
+    /**
+     * Returns true if the URL matches the current URL, else returns false.
+     *
+     * @param string $url The URL to verify.
+     *
+     * @throws InvalidArgumentException If the URL is empty.
+     *
+     * @since 0.5.0
+     *
+     * @example
+     * if (Router::currentUrlIs("/")) {
+     *  echo "current URL is /";
+     * } else {
+     *  echo "current URL is not "/";
+     * }
+     */
+    public static function currentUrlIs(string $url): bool
+    {
+        if (empty(trim($url))) {
+            throw new InvalidArgumentException("url must not be empty");
+        }
+
+        return $url === $_SERVER["REQUEST_URI"];
+    }
+
+    /**
      * Get the list of registered routes.
      *
      * @since 0.1.0

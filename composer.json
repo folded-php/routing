@@ -32,6 +32,8 @@
         "files": [
             "src/addGetRoute.php",
             "src/addPostRoute.php",
+            "src/currentRouteIs.php",
+            "src/currentUrlIs.php",
             "src/getRequestedUri.php",
             "src/getRequestedUrl.php",
             "src/getRequestMethod.php",

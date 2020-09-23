@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New method `currentRouteIs` to check if a given route matches the current URL.
+- New method `currentUrlIs` to check if a given URL matches the current URL.
+
 ## [0.4.1] 2020-09-18
 
 ### Fixed
