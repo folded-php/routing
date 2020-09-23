@@ -267,3 +267,81 @@ it("should return null when redirecting to a route", function (): void {
 it("should return null when redirecting to an url", function (): void {
     expect(Router::redirectToUrl("/"))->toBeNull();
 });
+
+it("should return true if the current route matches the current URL", function (): void {
+    $_SERVER["REQUEST_URI"] = "/";
+    $_SERVER["REQUEST_METHOD"] = "GET";
+
+    Router::addGetRoute("/", function (): void {
+    }, "home.index");
+
+    expect(Router::currentRouteIs("home.index"))->toBeTrue();
+});
+
+it("should return false if the current route does not matches the current URL", function (): void {
+    $_SERVER["REQUEST_URI"] = "/";
+
+    Router::addGetRoute("/about-us", function (): void {
+    }, "about-us.index");
+
+    expect(Router::currentRouteIs("about-us.index"))->toBeFalse();
+});
+
+it("should return true if the current parameterized route matches the current URL", function (): void {
+    $_SERVER["REQUEST_URI"] = "/user/42/post/24/edit";
+
+    Router::addGetRoute("/user/{user}/post/{post}/edit", function (): void {
+    }, "user.post.edit");
+
+    expect(Router::currentRouteIs("user.post.edit", ["user" => 42, "post" => 24]))->toBeTrue();
+});
+
+it("should throw an exception if checking if the current route matches the URL with an unregistered route", function (): void {
+    $this->expectException(RouteNotFoundException::class);
+
+    Router::currentRouteIs("not-found.index");
+});
+
+it("should throw an exception message if checking if the current route matches the URL with an unregistered route", function (): void {
+    $route = "not-found.index";
+
+    $this->expectExceptionMessage("route $route not found");
+
+    Router::currentRouteIs($route);
+});
+
+it("should set the route in the exception if checking if the current route matches the URL with an unregistered route", function (): void {
+    $route = "not-found.index";
+
+    try {
+        Router::currentRouteIs($route);
+    } catch (RouteNotFoundException $exception) {
+        expect($exception->getRoute())->toBe($route);
+    }
+});
+
+it("should return true if the current url is the requested one", function (): void {
+    $url = "/about-us";
+
+    $_SERVER["REQUEST_URI"] = $url;
+
+    expect(Router::currentUrlIs($url))->toBeTrue();
+});
+
+it("should return false if the current url is the requested one", function (): void {
+    $_SERVER["REQUEST_URI"] = "/about-us";
+
+    expect(Router::currentUrlIs("/"))->toBeFalse();
+});
+
+it("should throw an exception if the current url is empty", function (): void {
+    $this->expectException(InvalidArgumentException::class);
+
+    Router::currentUrlIs("");
+});
+
+it("should throw an exception message if the current url is empty", function (): void {
+    $this->expectExceptionMessage("url must not be empty");
+
+    Router::currentUrlIs("");
+});

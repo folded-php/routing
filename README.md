@@ -86,6 +86,8 @@ As this library is using [nikic/fast-route](https://github.com/nikic/FastRoute) 
 - [6. Get the URL of a named route](#6-get-the-url-of-a-named-route)
 - [7. Redirect to a named route](#7-redirect-to-a-named-route)
 - [8. Redirect to an URL](#8-redirect-to-an-url)
+- [9. Check if the current URL is the given one](#9-check-if-the-current-url-is-the-given-one)
+- [10. Check if a route matches the current URL](#10-check-if-a-route-matches-the-current-url)
 
 ### 1. Register a GET route
 
@@ -219,6 +221,56 @@ By default, a status code `303` will be used alongside the redirection. You can 
 use function Folded\redirectToUrl;
 
 redirectToUrl("/", 200);
+```
+
+### 9. Check if the current URL is the given one
+
+In this example, we will check if the current url is the one we have in parameter.
+
+```php
+use function Folded\currentUrlIs;
+
+if (currentUrlIs("/")) {
+  echo "we are at the home page";
+} else {
+  echo "we are not at the home page";
+}
+```
+
+### 10. Check if a route matches the current URL
+
+In this example, we will check if a given route name matches the URL.
+
+```php
+use function Folded\currentRouteIs;
+use function Folded\addGetRoute;
+
+addGetRoute("/about-us", function() {
+  echo "<h1>About us</h1>";
+}, "about-us.index");
+
+if (currentRouteIs("about-us.index")) {
+  echo "this is the about us page";
+} else {
+  echo "this is not the about us page";
+}
+```
+
+Note that if your route contains named parameter, for example `/user/{user}`, you can use the second parameter to fill the named parameter with the actual value.
+
+```php
+use function Folded\currentRouteIs;
+use function Folded\addGetRoute;
+
+addGetRoute("/user/{user}", function() {
+  echo "<h1>User detail</h1>";
+}, "user.show");
+
+if (currentRouteIs("user.show", ["user" => 17])) {
+  echo "this is the route /user/17";
+} else {
+  echo "this is not the route /user/17";
+}
 ```
 
 ## Version support
