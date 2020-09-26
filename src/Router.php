@@ -239,13 +239,17 @@ class Router
      *
      * Router::redirectToRoute("home.index"); // redirects to "/"
      */
-    public static function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER): void
+    public static function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER, array $urlSearchParams = []): void
     {
         if (!self::hasRoute($name)) {
             throw (new RouteNotFoundException("route $name not found"))->setRoute($name);
         }
 
         $url = self::getRouteUrl($name);
+
+        if (!empty($urlSearchParams)) {
+            $url = self::appendUrlParams($url, $urlSearchParams);
+        }
 
         http_response_code($status);
 
@@ -417,6 +421,15 @@ class Router
             }
         }
 
+        return $url;
+    }
+
+    private static function appendUrlParams(string $url, array $urlSearchParams): string
+    {
+        foreach ($urlSearchParams as $key => $paramValue) {
+            $url = rtrim($url, '/');
+            $url .= '/' . $key . '/' . $paramValue;
+        }
         return $url;
     }
 }
