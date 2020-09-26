@@ -29,12 +29,13 @@ it("should add route params", function (): void {
     addGetRoute("/", function (): void {
     }, "home.index");
 
-    redirectToRoute('home.index', 303,
+    redirectToRoute('home.index',
         [
             'user' => 1,
             'test' => 2
 
-        ]
+        ],
+        303
     );
     $headers = xdebug_get_headers();
     expect($headers[0])->toBe('Location:/user/1/test/2');
