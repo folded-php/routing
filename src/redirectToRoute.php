@@ -22,8 +22,8 @@ if (!function_exists("redirectToRoute")) {
      *
      * redirectToRoute("home.index"); // redirects to "/"
      */
-    function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER, array $urlSearchParams = []): void
+    function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER, array $routeParams = []): void
     {
-        Router::redirectToRoute($name, $status, $urlSearchParams);
+        Router::redirectToRoute($name, $status, $routeParams);
     }
 }
