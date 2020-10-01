@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] 2020-10-01
+
 ### Fixed
 
 - Added missing namespace `Folded` in `function_exists` statements.
