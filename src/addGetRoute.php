@@ -6,7 +6,7 @@ namespace Folded;
 
 use Closure;
 
-if (!function_exists("addGetRoute")) {
+if (!function_exists("Folded\addGetRoute")) {
     /**
      * Add a GET route.
      *

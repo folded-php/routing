@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Folded;
 
-if (!function_exists("getRequestedMethod")) {
+if (!function_exists("Folded\getRequestedMethod")) {
     /**
      * Get the requested HTTP protocol.
      *

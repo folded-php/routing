@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Folded;
 
-if (!function_exists("getRouteUrl")) {
+if (!function_exists("Folded\getRouteUrl")) {
     /**
      * Get the URL associated with the given route.
      * If the route contains placeholders, you need to pass the parameters to be filled.

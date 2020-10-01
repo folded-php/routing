@@ -6,7 +6,7 @@ namespace Foled;
 
 use function Folded\getRequestedUrl;
 
-if (!function_exists("getRequestedUri")) {
+if (!function_exists("Folded\getRequestedUri")) {
     /**
      * Get the requested URI.
      *

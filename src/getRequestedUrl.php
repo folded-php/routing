@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Folded;
 
-if (!function_exists("getRequestedUrl")) {
+if (!function_exists("Folded\getRequestedUrl")) {
     /**
      * Get the requested URL.
      *
