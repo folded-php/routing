@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Folded;
 
-if (!function_exists("matchRequestedUrl")) {
+if (!function_exists("Folded\matchRequestedUrl")) {
     /**
      * Register route and try to match the current browsed URL.
      *

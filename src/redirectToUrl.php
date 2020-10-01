@@ -6,7 +6,7 @@ namespace Folded;
 
 use Http\Redirection;
 
-if (!function_exists("redirectToUrl")) {
+if (!function_exists("Folded\redirectToUrl")) {
     /**
      * Redirects to a given URL.
      *

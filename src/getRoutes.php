@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Folded;
 
-if (!function_exists("getRoutes")) {
+if (!function_exists("Folded\getRoutes")) {
     /**
      * Returns the registered routes.
      *

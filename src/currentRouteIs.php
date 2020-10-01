@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Folded;
 
-if (!function_exists("currentRouteIs")) {
+if (!function_exists("Folded\currentRouteIs")) {
     /**
      * Returns true if route matches the current URL, else returns false.
      *

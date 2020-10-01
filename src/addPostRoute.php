@@ -6,7 +6,7 @@ namespace Folded;
 
 use Closure;
 
-if (!function_exists("addPostRoute")) {
+if (!function_exists("Folded\addPostRoute")) {
     /**
      * Add a POST route.
      *
