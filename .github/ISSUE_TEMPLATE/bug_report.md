@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Create a bug report to help us fix inconsistent behaviors.
-title: ''
+title: ""
 labels: bug
 assignees: khalyomede
-
 ---
 
 ## Description

@@ -1,10 +1,9 @@
 ---
 name: Feature request
 about: Suggest an idea to help improve this package.
-title: ''
+title: ""
 labels: enhancement
 assignees: khalyomede
-
 ---
 
 ## Description
