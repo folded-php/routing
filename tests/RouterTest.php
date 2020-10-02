@@ -278,6 +278,15 @@ it("should return true if the current route matches the current URL", function (
     expect(Router::currentRouteIs("home.index"))->toBeTrue();
 });
 
+it("should return true even if the current route contains query string", function (): void {
+    $_SERVER["REQUEST_URI"] = "/?utm_source=slack";
+
+    Router::addGetRoute("/", function (): void {
+    }, "home.index");
+
+    expect(Router::currentRouteIs("home.index"))->toBeTrue();
+});
+
 it("should return false if the current route does not matches the current URL", function (): void {
     $_SERVER["REQUEST_URI"] = "/";
 

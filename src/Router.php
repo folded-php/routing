@@ -136,7 +136,7 @@ class Router
             throw (new RouteNotFoundException("route $route not found"))->setRoute($route);
         }
 
-        return self::getRouteUrl($route, $parameters) === $_SERVER["REQUEST_URI"];
+        return self::getRouteUrl($route, $parameters) === parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
     }
 
     /**
