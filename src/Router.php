@@ -369,6 +369,23 @@ class Router
         }
     }
 
+    /**
+     * Replace the placeholders in a route by the given parameters (as either key-value pairs or a list of values).
+     *
+     * @param string $route      The route to replace parameter on. It is NOT the route name.
+     * @param array  $parameters A key-value pairs or a list of value to use to replace the placeholders.
+     *
+     * @throws InvalidArgumentException If a parameter to replace is missing for the route.
+     * @throws InvalidArgumentException If a parameter does not match the expected regex in the route.
+     *
+     * @since 0.2.0
+     *
+     * @example
+     * echo Router::replaceRouteParameter("/user/{user}/post/{post}", [
+     *  "user" => 42,
+     *  "post" => 2
+     * ]);
+     */
     private static function replaceRouteParameters(string $route, array $parameters): string
     {
         $routeDatas = (new Std())->parse($route);
