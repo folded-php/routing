@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Calling `currentRouteIs()` will now return true even if the current URL has query strings.
+
 ## [0.5.1] 2020-10-01
 
 ### Fixed
