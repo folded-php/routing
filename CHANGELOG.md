@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] 2020-10-03
+
 ### Added
 
 - New method `MethodNotAllowed::getUrl()` to be able to catch the URL when a 405 exception is catched when using `matchRequestedUrl()`.
