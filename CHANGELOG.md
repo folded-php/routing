@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Calling `currentRouteIs()` will now return true even if the current URL has query strings.
+- Calling `currentRouteIs()` will now return true even if the current URL has query strings.\*
+- Updated dependency `folded/exception` to version 0.4.\*.
 
 ## [0.5.1] 2020-10-01
 
