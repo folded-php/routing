@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New method `MethodNotAllowed::getUrl()` to be able to catch the URL when a 405 exception is catched when using `matchRequestedUrl()`.
+
 ### Fixed
 
 - Calling `currentRouteIs()` will now return true even if the current URL has query strings.

@@ -360,7 +360,7 @@ class Router
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = $routeInfo[1];
 
-                throw (new MethodNotAllowedException("method not allowed"))->setMethodNotAllowed($requestMethod)->setAllowedMethods($allowedMethods);
+                throw (new MethodNotAllowedException("method not allowed"))->setMethodNotAllowed($requestMethod)->setAllowedMethods($allowedMethods)->setUrl($uri);
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
