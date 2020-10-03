@@ -93,6 +93,23 @@ it("should set the allowed methods in the exception if the current URL method is
     }
 });
 
+it("should set the url in the exception if the current URL method is not allowed", function (): void {
+    $url = "/";
+    $_SERVER["REQUEST_URI"] = $url;
+    $_SERVER["REQUEST_METHOD"] = "POST";
+
+    Router::addGetRoute($url, function (): void {
+        echo "hello world";
+    });
+    Router::startEngine();
+
+    try {
+        Router::matchRequestedUrl();
+    } catch (MethodNotAllowedException $exception) {
+        expect($exception->getUrl())->toBe($url);
+    }
+});
+
 it("should execute the closure if the current URL matches the registered route", function (): void {
     $_SERVER["REQUEST_URI"] = "/";
     $_SERVER["REQUEST_METHOD"] = "GET";
