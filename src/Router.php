@@ -16,6 +16,7 @@ use function FastRoute\simpleDispatcher;
 use Folded\Exceptions\UrlNotFoundException;
 use Folded\Exceptions\MethodNotAllowedException;
 use Folded\Exceptions\RouteNotFoundException;
+use RuntimeException;
 
 /**
  * Represent the engine that matches the current browsed URL against registered URLs.
@@ -52,6 +53,8 @@ final class Router
     /**
      * Stores the registered routes.
      *
+     * @var array<Route>
+     *
      * @since 0.1.0
      */
     private static array $routes = [];
@@ -74,7 +77,7 @@ final class Router
      */
     public static function addGetRoute(string $route, Closure $action, ?string $name = null): void
     {
-        static::addRoute(self::PROTOCOL_GET, $route, $action, $name);
+        self::addRoute(self::PROTOCOL_GET, $route, $action, $name);
     }
 
     /**
@@ -95,7 +98,7 @@ final class Router
      */
     public static function addPostRoute(string $route, Closure $action, ?string $name = null): void
     {
-        static::addRoute(self::PROTOCOL_POST, $route, $action, $name);
+        self::addRoute(self::PROTOCOL_POST, $route, $action, $name);
     }
 
     /**
@@ -109,17 +112,17 @@ final class Router
      */
     public static function clear(): void
     {
-        static::$routes = [];
-        static::$engine = null;
+        self::$routes = [];
+        self::$engine = null;
     }
 
     /**
      * Returns true if route matches the current URL, else returns false.
      *
-     * @param string $route      The route name to verify.
-     * @param array  $parameters The parameters to pass to the route if it has named parameters.
+     * @param string       $route      The route name to verify.
+     * @param array<mixed> $parameters The parameters to pass to the route if it has named parameters.
      *
-     * @throws Folded\Exceptions\RouteNotFoundException If the route name is not found.
+     * @throws RouteNotFoundException If the route name is not found.
      *
      * @since 0.5.0
      *
@@ -167,6 +170,8 @@ final class Router
     /**
      * Get the list of registered routes.
      *
+     * @return array<Route>
+     *
      * @since 0.1.0
      *
      * @example
@@ -174,17 +179,17 @@ final class Router
      */
     public static function getRoutes(): array
     {
-        return static::$routes;
+        return self::$routes;
     }
 
     /**
      * Get the URL associated with the given route.
      * If the route contains placeholders, you need to pass the parameters to be filled.
      *
-     * @param string $name       The name of the route.
-     * @param array  $parameters The parameters, by key-value pairs or simply values, to fill in the placeholders (optional).
+     * @param string       $name       The name of the route.
+     * @param array<mixed> $parameters The parameters, by key-value pairs or simply values, to fill in the placeholders (optional).
      *
-     * @throws OurOfRangeException If the route name is not found.
+     * @throws OutOfRangeException If the route name is not found.
      *
      * @since 0.2.0
      *
@@ -211,17 +216,19 @@ final class Router
      *
      * @since 0.1.0
      *
-     * @throws Folded\Exceptions\UrlNotFoundException      If the URL is not found in the registered routes.
-     * @throws Folded\Exceptions\MethodNotAllowedException If the URL has been found, but the current protocol does not match.
+     * @throws UrlNotFoundException      If the URL is not found in the registered routes.
+     * @throws MethodNotAllowedException If the URL has been found, but the current protocol does not match.
+     *
+     * @return mixed
      *
      * @example
      * Router::matchRequestedUrl();
      */
     public static function matchRequestedUrl()
     {
-        static::startEngine();
+        self::startEngine();
 
-        return static::matchUrl();
+        return self::matchUrl();
     }
 
     /**
@@ -281,7 +288,7 @@ final class Router
     public static function startEngine(): void
     {
         self::$engine = simpleDispatcher(static function (RouteCollector $router): void {
-            foreach (static::$routes as $route) {
+            foreach (self::$routes as $route) {
                 $router->addRoute($route->getProtocol(), $route->getRoute(), $route->getAction());
             }
         });
@@ -311,9 +318,9 @@ final class Router
                 throw new InvalidArgumentException("route name cannot be empty");
             }
 
-            static::$routes[$name] = $route;
+            self::$routes[$name] = $route;
         } else {
-            static::$routes[] = $route;
+            self::$routes[] = $route;
         }
     }
 
@@ -341,8 +348,11 @@ final class Router
      *
      * @since 0.1.0
      *
-     * @throws Folded\Exceptions\UrlNotFoundException      If the current browsed URL does not match the registered URLs.
-     * @throws Folded\Exceptions\MethodNotAllowedException If the current browsed URL matches, but the protocol don't.
+     * @throws UrlNotFoundException      If the current browsed URL does not match the registered URLs.
+     * @throws MethodNotAllowedException If the current browsed URL matches, but the protocol don't.
+     * @throws RuntimeException          If the dispatcher has not been instanciated yet.
+     *
+     * @return mixed
      *
      * @example
      * Router::matchUrl();
@@ -352,7 +362,11 @@ final class Router
         $requestMethod = getRequestedMethod();
         $uri = getRequestedUri();
 
-        $routeInfo = static::$engine->dispatch($requestMethod, $uri);
+        if (!(self::$engine instanceof Dispatcher)) {
+            throw new RuntimeException("dispatcher has not been instanciated yet");
+        }
+
+        $routeInfo = self::$engine->dispatch($requestMethod, $uri);
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
@@ -372,8 +386,8 @@ final class Router
     /**
      * Replace the placeholders in a route by the given parameters (as either key-value pairs or a list of values).
      *
-     * @param string $route      The route to replace parameter on. It is NOT the route name.
-     * @param array  $parameters A key-value pairs or a list of value to use to replace the placeholders.
+     * @param string       $route      The route to replace parameter on. It is NOT the route name.
+     * @param array<mixed> $parameters A key-value pairs or a list of value to use to replace the placeholders.
      *
      * @throws InvalidArgumentException If a parameter to replace is missing for the route.
      * @throws InvalidArgumentException If a parameter does not match the expected regex in the route.

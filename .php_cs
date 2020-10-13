@@ -102,7 +102,7 @@ return Config::create()
         "no_spaces_around_offset" => true,
         "no_superfluous_elseif" => true,
         "no_superfluous_phpdoc_tags" => [
-            "allow_mixed" => false,
+            "allow_mixed" => true,
             "allow_unused_params" => false,
             "remove_inheritdoc" => false,
         ],

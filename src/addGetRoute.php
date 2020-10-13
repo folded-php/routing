@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Folded;
 
 use Closure;
+use InvalidArgumentException;
 
 if (!function_exists("Folded\addGetRoute")) {
     /**

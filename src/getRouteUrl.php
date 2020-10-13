@@ -4,15 +4,17 @@ declare(strict_types = 1);
 
 namespace Folded;
 
+use OutOfRangeException;
+
 if (!function_exists("Folded\getRouteUrl")) {
     /**
      * Get the URL associated with the given route.
      * If the route contains placeholders, you need to pass the parameters to be filled.
      *
-     * @param string $name       The name of the route.
-     * @param array  $parameters The parameters, by key-value pairs or simply values, to fill in the placeholders (optional).
+     * @param string       $name       The name of the route.
+     * @param array<mixed> $parameters The parameters, by key-value pairs or simply values, to fill in the placeholders (optional).
      *
-     * @throws OurOfRangeException If the route name is not found.
+     * @throws OutOfRangeException If the route name is not found.
      *
      * @since 0.2.0
      *

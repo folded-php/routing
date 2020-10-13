@@ -19,10 +19,14 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "2.*",
         "phpunit/phpunit": "9.*",
-        "pestphp/pest": "0.3.*"
+        "pestphp/pest": "0.3.*",
+        "phpstan/phpstan": "0.12.*"
     },
     "scripts": {
-        "test": "pest --coverage",
+        "test": [
+            "pest --coverage",
+            "phpstan analyse"
+        ],
         "lint": "php-cs-fixer --allow-risky=yes fix"
     },
     "autoload": {

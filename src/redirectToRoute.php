@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Folded;
 
 use Http\Redirection;
+use Folded\Exceptions\RouteNotFoundException;
 
 if (!function_exists("Folded\redirectToRoute")) {
     /**
