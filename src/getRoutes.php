@@ -8,6 +8,8 @@ if (!function_exists("Folded\getRoutes")) {
     /**
      * Returns the registered routes.
      *
+     * @return array<Route>
+     *
      * @since 0.1.0
      *
      * @example

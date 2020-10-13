@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Folded;
 
+use InvalidArgumentException;
+
 if (!function_exists("Folded\currentUrlIs")) {
     /**
      * Returns true if the URL matches the current URL, else returns false.
