@@ -22,7 +22,7 @@ use Folded\Exceptions\RouteNotFoundException;
  *
  * @since 0.1.0
  */
-class Router
+final class Router
 {
     /**
      * @since 0.1.0
