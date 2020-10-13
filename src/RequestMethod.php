@@ -9,7 +9,7 @@ namespace Folded;
  *
  * @since 0.1.0
  */
-class RequestMethod
+final class RequestMethod
 {
     /**
      * @since 0.1.0

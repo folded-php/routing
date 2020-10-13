@@ -12,7 +12,7 @@ use InvalidArgumentException;
  *
  * @since 0.1.0
  */
-class Route
+final class Route
 {
     /**
      * The function to call when the route matches the current browsed URL.
