@@ -235,7 +235,8 @@ final class Router
      * Redirects to the URL found by its route name.
      *
      * @param string $name   The name of the route.
-     * @param int    $status The HTTP status code to use when redirecting (default: 303 - See other).
+     * @param array $routeParams Route parameters array
+     * @param int $status The HTTP status code to use when redirecting (default: 303 - See other).
      *
      * @throws RouteNotFoundException If the route name is not found.
      *
@@ -246,13 +247,17 @@ final class Router
      *
      * Router::redirectToRoute("home.index"); // redirects to "/"
      */
-    public static function redirectToRoute(string $name, int $status = Redirection::SEE_OTHER): void
+    public static function redirectToRoute(string $name, array $routeParams = [], int $status = Redirection::SEE_OTHER): void
     {
         if (!self::hasRoute($name)) {
             throw (new RouteNotFoundException("route $name not found"))->setRoute($name);
         }
 
         $url = self::getRouteUrl($name);
+
+        if (!empty($routeParams)) {
+            $url = self::appendUrlParams($url, $routeParams);
+        }
 
         http_response_code($status);
 
@@ -448,6 +453,15 @@ final class Router
             }
         }
 
+        return $url;
+    }
+
+    private static function appendUrlParams(string $url, array $routeParams): string
+    {
+        foreach ($routeParams as $key => $paramValue) {
+            $url = rtrim($url, '/');
+            $url .= '/' . $key . '/' . $paramValue;
+        }
         return $url;
     }
 }
